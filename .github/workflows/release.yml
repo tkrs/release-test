@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
       - run: npm install -g conventional-changelog-cli
-      - run: conventional-changelog -r 2
+      - run: conventional-changelog -n release-options.json -r 2
       # - id: changelog
       # - name: Create Release
       #   uses: actions/create-release@v1
