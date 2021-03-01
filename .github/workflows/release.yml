@@ -34,7 +34,7 @@ jobs:
         uses: actions/setup-node@v1
       - run: npm install -g conventional-changelog-cli
       - run: npm install -g github-release-notes
-      - run: gren release -o -B -D "commits" --tags ${{ github.ref }} -N commits
+      - run: gren release -o -B -D "commits" --tags "${GITHUB_REF##*/}" -N commits
         env:
           GREN_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - run: conventional-changelog -n release-options.json -r 2
