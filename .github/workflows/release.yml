@@ -36,7 +36,7 @@ jobs:
       - run: npm install -g github-release-notes
       - run: gren release -o -B -D "commits" --tags ${{ github.ref }} -N commits
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GREN_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - run: conventional-changelog -n release-options.json -r 2
       # - name: Create Release
       #   uses: actions/create-release@v1
