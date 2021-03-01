@@ -13,6 +13,14 @@ jobs:
         with:
           fetch-depth: 0
       - run: cat a
+      # - name: Create Release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: ${{ github.ref }}
+      #     body: ""
   release:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
@@ -25,12 +33,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
       - run: npm install -g conventional-changelog-cli
-      - run: conventional-changelog -n release-options.json -r 2
-      - name: Create Release
-        uses: actions/create-release@v1
+      - run: npm install -g github-release-notes
+      - run: gren release -o -B -D "commits" --tags ${{ github.ref }} -N commits
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          body: ""
+      # - run: conventional-changelog -n release-options.json -r 2
+      # - name: Create Release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: ${{ github.ref }}
+      #     body: ""
