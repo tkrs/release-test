@@ -14,8 +14,7 @@ jobs:
     if: ${{ !contains(fromJSON('["development", "production"]'), github.base_ref) }}
     runs-on: ubuntu-latest
     steps:
-      - name: My first step
-        uses: wxdlong/hello-action@v7
-        with:
-          who-to-greet: 'Mona the ${{ github.ref }}'
+      - run: echo ${GITHUB_CONTEXT}
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
 
