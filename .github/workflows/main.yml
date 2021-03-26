@@ -4,9 +4,12 @@ on:
   push:
     branches: [main]
   pull_request:
+    paths-ignore:
+      - v
 
 jobs:
   build:
+    if: github.base_ref != 'production'
     runs-on: ubuntu-latest
     steps:
       - run: echo ${GITHUB_CONTEXT}
