@@ -1,16 +1,15 @@
-name: Build
+name: Deploy
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches: [production]
 
 jobs:
-  build:
+  echo:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${GITHUB_CONTEXT}
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
+
 
