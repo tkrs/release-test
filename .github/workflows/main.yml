@@ -4,10 +4,10 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - v
+      - vv
   pull_request:
     paths-ignore:
-      - v
+      - vv
 
 jobs:
   build:
