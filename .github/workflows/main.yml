@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    if: github.base_ref != 'production'
+    if: ${{ !contains(fromJSON('["development", "production"]'), github.base_ref) }}
     runs-on: ubuntu-latest
     steps:
       - run: echo ${GITHUB_CONTEXT}
