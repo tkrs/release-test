@@ -17,5 +17,5 @@ jobs:
       - name: My first step
         uses: wxdlong/hello-action@v7
         with:
-          who-to-greet: 'Mona the ${GITHUB_REF##*}'
+          who-to-greet: 'Mona the ${{ github.ref }}'
 
