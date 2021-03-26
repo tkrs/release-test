@@ -4,17 +4,18 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - vv
+      - 'vv/**'
   pull_request:
     paths-ignore:
-      - vv
+      - 'vv/**'
 
 jobs:
   build:
     if: ${{ !contains(fromJSON('["development", "production"]'), github.base_ref) }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${GITHUB_CONTEXT}
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
+      - name: My first step
+        uses: wxdlong/hello-action@v7
+        with:
+          who-to-greet: 'Mona the ${GITHUB_REF##*}'
 
