@@ -15,7 +15,7 @@ jobs:
       - run: cat a
   release:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/tags/v'
+    if: startsWith(github.ref, 'refs/tags/v')
     needs:
       - publish
     steps:
