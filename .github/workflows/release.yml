@@ -31,16 +31,18 @@ jobs:
       - name: Conventional Changelog Action
         id: changelog
         run: |
+          tag="${GITHUB_REF##*/}"
           changelog="$(conventional-changelog -n release-options.json)"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
+          echo "::set-output name=tag::${tag}"
           echo "::set-output name=changelog::${changelog}"
       - name: Create Release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v0.1.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: main
-          draft: true
+          tag_name: ${{ steps.changelog.outputs.tag }}
+          name: Release ${{ steps.changelog.outputs.tag }}
           body: ${{ steps.changelog.outputs.changelog }}
