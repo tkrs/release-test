@@ -44,6 +44,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.changelog.outputs.tag }}
           name: Release ${{ steps.changelog.outputs.tag }}
           body: ${{ steps.changelog.outputs.changelog }}
