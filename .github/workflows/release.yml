@@ -32,7 +32,8 @@ jobs:
         id: changelog
         run: |
           tag="${GITHUB_REF##*/}"
-          changelog="$(conventional-changelog -n release-options.json)"
+          changelog="$(conventional-changelog -n release-options.json --release-count 2)"
+          changelog="${changelog//##  (/## ${tag} (}"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
