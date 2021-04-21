@@ -40,7 +40,7 @@ jobs:
           echo "::set-output name=tag::${tag}"
           echo "::set-output name=changelog::${changelog}"
       - name: Create Release
-        uses: softprops/action-gh-release@v0.1.5
+        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
