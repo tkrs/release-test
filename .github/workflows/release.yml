@@ -26,8 +26,8 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup Node.js
-        uses: actions/setup-node@v1
-      - run: npm install -g conventional-changelog-cli
+        uses: actions/setup-node@v2
+      - run: sudo npm install -g conventional-changelog-cli
       - name: Conventional Changelog Action
         id: changelog
         run: |
