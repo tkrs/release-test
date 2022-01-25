@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -euf -o pipefail
+
+setup_environment() {
+  tag_name="$1"
+  name="version ${CIRCLE_TAG//v/}"
+  prerelease="${PRE:-true}"
+}
+
+get_release() {
+  local endpoint="https://api.github.com/repos/tkrs/release-test/releases/tags/${tag_name}"
+  upload_url=$(curl -H "Authorization: token ${GITHUB_TOKEN}" "${endpoint}" | jq '.upload_url')
+  if [[ "${upload_url}" != "null" ]]; then
+    upload_url=$(echo "${upload_url}" | sed -e 's/{?name,label}/?name=/g' | sed -e 's/"//g')
+  fi
+}
+
+create_release() {
+  local body="{ \"tag_name\": \"${tag_name}\", \"name\": \"${name}\", \"prerelease\": ${prerelease} }"
+  local endpoint="https://api.github.com/repos/tkrs/release-test/releases"
+  upload_url="$(curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" "${endpoint}" -d "${body}" | jq '.upload_url' | sed -e 's/{?name,label}/?name=/g' | sed -e 's/"//g')"
+}
+
+upload_objects() {
+  local f='x.js'
+  curl --data-binary "@${f}" -H "Content-Type: application/javascript; charset=utf-8" -H "Authorization: token ${GITHUB_TOKEN}" "${upload_url}$(basename "${f}")"
+}
+
+main() {
+  setup_environment
+  get_release
+  if [[ "${upload_url}" = "null" ]]; then
+    create_release
+  fi
+  upload_objects
+}
+
+main "$@"
