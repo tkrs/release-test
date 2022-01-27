@@ -20,21 +20,8 @@ on:
         required: true
 
 jobs:
-  log-the-inputs-development:
-    runs-on: ubuntu-latest
-    environment: development
-    steps:
-      - run: |
-          echo "Log level: $LEVEL"
-          echo "Tags: $TAGS"
-          echo "Environment: $ENVIRONMENT"
-        env:
-          LEVEL: ${{ github.event.inputs.logLevel }}
-          TAGS: ${{ github.event.inputs.tags }}
-          ENVIRONMENT: ${{ github.event.inputs.environment }}
   log-the-inputs:
     runs-on: ubuntu-latest
-    environment: production
     steps:
       - run: |
           echo "Log level: $LEVEL"
