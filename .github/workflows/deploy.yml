@@ -14,7 +14,6 @@ jobs:
           - "development"
           - "production"
     runs-on: ubuntu-latest
-    # environment: ${{ matrix.env }}
     steps:
       - run: |
           echo "Environment: $ENVIRONMENT"

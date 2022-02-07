@@ -1,4 +1,4 @@
-name: Create GitHub Release
+name: Release
 
 on:
   workflow_dispatch:
@@ -16,21 +16,20 @@ jobs:
       - run: sudo npm install -g standard-version
       - name: Generate tag and release body
         run: |
-          git config user.name tkrs
-          git config user.email type.in.type@gmail.com
-          echo "machine github.com
-          login tkrs
-          password ${GITHUB_TOKEN}" > ~/.netrc
+          git config --global user.name "Takeru Sato"
+          git config --global user.email "type.in.type@gmail.com"
+          # echo "machine github.com
+          # login tkrs
+          # password ${GITHUB_TOKEN}" > ~/.netrc
           standard-version -i RELEASE_BODY.md --skip.commit
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       - name: Publish tag
         id: publish_tag
         run: |
-          head -2 ~/.netrc
           git push --follow-tags
           echo ::set-output name=tag_name::$(git describe HEAD --abbrev=0)
-      - name: create release
+      - name: Create release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
