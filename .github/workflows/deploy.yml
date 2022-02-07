@@ -1,9 +1,8 @@
-name: Deploy
+name: Deploy each Evironment
 
 on:
   push:
-    tags:
-      - "*"
+    tags: ["*"]
 
 jobs:
   deploy:
