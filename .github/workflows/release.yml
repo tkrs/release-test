@@ -1,48 +1,24 @@
-name: Release
-
 on:
-  push:
-    branches: [main]
-    tags: ["*"]
+  workflow_dispatch:
+    # inputs:
+    #   environment:
+    #     description: 'Environment to run tests against'
+    #     type: environment
+    #     required: true
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 0
-      - run: cat a
   release:
+    strategy:
+      fail-fast: false
+      matrix:
+        env:
+          - "development"
+          - "production"
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs:
-      - publish
+    # environment: ${{ github.event.inputs.environment }}
+    environment: ${{ matrix.env }}
     steps:
-      - run: echo ${{ github.ref }}
-      - run: echo ${{ github.head_ref }}
-      - run: echo ${{ github.base_ref }}
-        # - uses: actions/checkout@v2.3.4
-        #   with:
-        #     fetch-depth: 0
-        # - name: Setup Node.js
-        #   uses: actions/setup-node@v2
-        # - run: sudo npm install -g conventional-changelog-cli
-        # - name: Conventional Changelog Action
-        #   id: changelog
-        #   run: |
-        #     tag="${GITHUB_REF##*/}"
-        #     changelog="$(conventional-changelog -n release-options.json -c release-context.json -r 2)"
-        #     changelog="${changelog//##  (/## ${tag} (}"
-        #     changelog="${changelog//'%'/'%25'}"
-        #     changelog="${changelog//$'\n'/'%0A'}"
-        #     changelog="${changelog//$'\r'/'%0D'}"
-        #     echo "::set-output name=tag::${tag}"
-        #     echo "::set-output name=changelog::${changelog}"
-        # - name: Create Release
-        #   uses: softprops/action-gh-release@v1
-        #   env:
-        #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #   with:
-        #     name: Release ${{ steps.changelog.outputs.tag }}
-        #     body: ${{ steps.changelog.outputs.changelog }}
+      - run: |
+          echo "Environment: $ENVIRONMENT"
+        env:
+          ENVIRONMENT: ${{ environment }}
