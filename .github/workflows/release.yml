@@ -23,4 +23,4 @@ jobs:
       - run: |
           echo "Environment: $ENVIRONMENT"
         env:
-          ENVIRONMENT: ${{ jobs.release.environment }}
+          ENVIRONMENT: ${{ matrix.env }}
