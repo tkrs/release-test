@@ -22,11 +22,11 @@ jobs:
           standard-version -i RELEASE_BODY.md --skip.commit
         # env:
         #   GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      # - name: Publish tag
-      #   id: publish_tag
-      #   run: |
-      #     git push --follow-tags
-      #     echo ::set-output name=tag_name::$(git describe HEAD --abbrev=0)
+      - name: Publish tag
+        id: publish_tag
+        run: |
+          git push --follow-tags
+          echo ::set-output name=tag_name::$(git describe HEAD --abbrev=0)
       # - name: Create release
       #   uses: actions/create-release@v1
       #   env:
