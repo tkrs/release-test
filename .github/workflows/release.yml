@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v2
       - run: sudo npm install -g standard-version
       - name: Generate tag and release body
-        run: standard-version -i RELEASE_BODY.md --skip.commit
+        run: standard-version --sign -i RELEASE_BODY.md --skip.commit
       - name: Publish tag
         id: publish_tag
         run: |
