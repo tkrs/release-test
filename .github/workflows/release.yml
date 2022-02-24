@@ -1,42 +1,20 @@
 name: Release
 
 on:
-  workflow_dispatch:
+  deployment_status
 
 jobs:
   release:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - name: Import GPG key
-        uses: hashicorp/ghaction-import-gpg@v2.1.0
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-          PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-      - uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GH_PAT }}
-      - name: Setting up git config
-        run: |
-          git config --global user.name "Takeru Sato"
-          git config --global user.email "type.in.type@gmail.com"
-          git config --global user.signingkey "${{ secrets.GPG_KEY_ID }}"
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-      - run: sudo npm install -g standard-version
-      - name: Generate tag and release body
-        run: standard-version --sign -i RELEASE_BODY.md --skip.commit
-      - name: Publish tag
-        id: publish_tag
-        run: |
-          git push --follow-tags
-          echo ::set-output name=tag_name::$(git describe HEAD --abbrev=0)
+      - id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - name: Create release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          release_name: Release ${{ steps.publish_tag.outputs.tag_name }}
-          tag_name: ${{ steps.publish_tag.outputs.tag_name }}
+          release_name: Release ${{ steps.get_version.outputs.name }}
+          tag_name: ${{ steps.get_version.outputs.name }}
           body_path: RELEASE_BODY.md
