@@ -32,13 +32,13 @@ jobs:
       - name: Generate prerelease tag and release body
         run: |
           npx standard-version -i RELEASE_BODY.md --skip.commit --skip.tag --prerelease alpha
-          git reset --hard HEAD
+          git restore package.json
           npx standard-version --sign --skip.changelog --prerelease alpha
         if: ${{ inputs.environment == 'development' }}
       - name: Generate tag and release body
         run: |
           npx standard-version -i RELEASE_BODY.md --skip.commit --skip.tag
-          git reset --hard HEAD
+          git restore package.json
           npx standard-version --sign --skip.changelog
         if: ${{ inputs.environment == 'production' }}
       - name: Publish tag
