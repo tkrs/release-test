@@ -29,6 +29,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
       - run: sudo npm install -g standard-version
+      - name: Generate prerelease tag and release body
+        run: standard-version --sign -i RELEASE_BODY.md --skip.commit --prerelease alpha
+        if: ${{ inputs.environment == 'development' }}
       - name: Generate tag and release body
         run: standard-version --sign -i RELEASE_BODY.md --skip.commit
         if: ${{ inputs.environment == 'production' }}
