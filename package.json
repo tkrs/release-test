@@ -1,0 +1,11 @@
+{
+  "name": "release-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tkrs/release-test.git",
+  "author": "Takeru Sato <type.in.type@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "standard-version": "^9.5.0"
+  }
+}
