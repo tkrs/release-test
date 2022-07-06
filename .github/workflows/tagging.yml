@@ -30,10 +30,10 @@ jobs:
         uses: actions/setup-node@v2
       - run: yarn
       - name: Generate prerelease tag and release body
-        run: npx standard-version --sign -i RELEASE_BODY.md --prerelease alpha
+        run: npx standard-version --sign -i RELEASE_BODY.md --skip.changelog --prerelease alpha
         if: ${{ inputs.environment == 'development' }}
       - name: Generate tag and release body
-        run: npx standard-version --sign -i RELEASE_BODY.md
+        run: npx standard-version --sign -i RELEASE_BODY.md --skip.changelog
         if: ${{ inputs.environment == 'production' }}
       - name: Publish tag
         id: publish_tag
