@@ -4,28 +4,26 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment'
+        description: Environment
         type: environment
-        required: true 
+        required: true
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - name: Import GPG key
-        uses: hashicorp/ghaction-import-gpg@v2.1.0
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-          PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_committer_name: "Takeru Sato"
+          git_committer_email: "type.in.type@gmail.com"
       - uses: actions/checkout@v2.3.4
         with:
           fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
-      - name: Setting up git config
-        run: |
-          git config --global user.name "Takeru Sato"
-          git config --global user.email "type.in.type@gmail.com"
-          git config --global user.signingkey "${{ secrets.GPG_KEY_ID }}"
       - name: Setup Node.js
         uses: actions/setup-node@v2
       - run: yarn

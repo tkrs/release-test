@@ -7,15 +7,6 @@ on:
 
 jobs:
   deploy:
-    strategy:
-      fail-fast: false
-      matrix:
-        env:
-          - "development"
-          - "production"
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "Environment: $ENVIRONMENT"
-        env:
-          ENVIRONMENT: ${{ matrix.env }}
+      - run: echo ${{ github.ref_name }}
