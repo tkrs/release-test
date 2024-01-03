@@ -34,7 +34,7 @@ jobs:
       - name: Generate release context
         id: release_context
         run: |
-          tag="$(git describe HEAD --abbrev=0)"
+          tag="$(git describe HEAD --abbrev=0 --tags)"
           echo "tag_name=$tag" >>$GITHUB_OUTPUT
           echo "version=${tag/v/}" >>$GITHUB_OUTPUT
           git tag -d "${tag}"
