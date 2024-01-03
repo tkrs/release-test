@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
       - name: show event
-        run: echo "${{ toJSON(github.event.head_commit.message) }}"
+        run: echo "${{ github.event.head_commit.message }}"
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         with:
@@ -24,7 +24,7 @@ jobs:
           git_committer_name: "Takeru Sato"
           git_committer_email: "type.in.type@gmail.com"
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
       - run: yarn
       - name: Generate prerelease tag and release body
         if: ${{ github.job.environment != 'production' }}
