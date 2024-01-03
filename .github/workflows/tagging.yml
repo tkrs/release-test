@@ -7,8 +7,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    # if: ${{ startsWith(github.event.head_commit.message, 'chore(release):') }}
+    # if: ${{ startsWith(github.event.commits.message, 'chore(release):') }}
     steps:
+      - run: echo '${{ toJSON(github.event.commits) }}'
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
