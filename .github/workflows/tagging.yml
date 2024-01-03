@@ -27,5 +27,5 @@ jobs:
       - run: yarn
       - name: Publish tag
         run: |
-          git tag "$(cat package.json | jq -r ".version")"
+          git tag "v$(cat package.json | jq -r ".version")"
           git push --follow-tags
