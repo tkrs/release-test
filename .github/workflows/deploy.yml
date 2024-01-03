@@ -8,7 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ contains(github.ref_name, 'alpha') && 'development' || 'production' }}
     steps:
       - uses: actions/checkout@v4
       - name: Generate release context
@@ -26,4 +25,4 @@ jobs:
           name: Release ${{ steps.release_context.outputs.tag_name }}
           tag_name: ${{ steps.release_context.outputs.tag_name }}
           body_path: RELEASE_BODY.md
-          prerelease: ${{ github.job.environment == 'production' }}
+          prerelease: ${{ contains(github.ref_name, 'alpha') && 'development' || 'production' }}
