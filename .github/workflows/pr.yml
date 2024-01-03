@@ -2,6 +2,10 @@ name: Create Release PR
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        default: development
 
 permissions:
   contents: write
@@ -21,8 +25,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
       - run: yarn
-      - name: Determine tag and generate release body
-        run: npx standard-version --infile RELEASE_BODY.md --skip.commit
+      - name: Generate prerelease tag and release body
+        if: ${{ github.job.environment != 'production' }}
+        run: npx standard-version -i RELEASE_BODY.md --skip.commit --prerelease alpha
+      - name: Generate tag and release body
+        if: ${{ github.job.environment == 'production' }}
+        run: npx standard-version -i RELEASE_BODY.md --skip.commit
       - name: Generate release context
         id: release_context
         run: |
