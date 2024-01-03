@@ -18,8 +18,11 @@ jobs:
           tag="$(git describe HEAD --abbrev=0 --tags)"
           echo "tag_name=$tag" >>$GITHUB_OUTPUT
           echo "version=${tag/v/}" >>$GITHUB_OUTPUT
-      - uses: actions/download-artifact@v4
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v3
         with:
+          workflow: pr.yml
+          workflow_conclusion: success
           name: "release-note-${{ steps.release_context.outputs.tag_name }}"
           path: RELEASE_BODY.md
       - run: cat RELEASE_BODY.md
@@ -32,7 +35,3 @@ jobs:
           tag_name: ${{ steps.release_context.outputs.tag_name }}
           body_path: RELEASE_BODY.md
           prerelease: ${{ contains(github.ref_name, 'alpha') && 'development' || 'production' }}
-      - uses: geekyeggo/delete-artifact@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: "release-note-${{ steps.release_context.outputs.tag_name }}"
