@@ -13,7 +13,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
       - name: show event
-        run: echo "${{ github.event }}"
+        run: echo "${{ toJSON(github.event) }}"
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         with:
