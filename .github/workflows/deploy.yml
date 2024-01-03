@@ -24,7 +24,6 @@ jobs:
           workflow: pr.yml
           workflow_conclusion: success
           name: "release-note-${{ steps.release_context.outputs.tag_name }}"
-          path: RELEASE_BODY.md
       - run: cat RELEASE_BODY.md
       - name: Create release
         uses: softprops/action-gh-release@v1
