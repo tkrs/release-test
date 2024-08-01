@@ -1,51 +1,12 @@
-name: Create Release PR
+name: Main CI
 
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        type: environment
-        default: development
-
-permissions:
-  contents: write
-  pull-requests: write
+  push: 
+    - main
+  pull_request:
 
 jobs:
-  create-pr:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup git user
-        run: |
-          git config user.email "type.in.type@gmail.com"
-          git config user.name "Takeru Sato"
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-      - run: yarn
-      - name: Generate prerelease tag and release body
-        if: ${{ github.job.environment != 'production' }}
-        run: npx standard-version -i RELEASE_BODY.md --skip.commit --prerelease alpha
-      - name: Generate tag and release body
-        if: ${{ github.job.environment == 'production' }}
-        run: npx standard-version -i RELEASE_BODY.md --skip.commit
-      - name: Generate release context
-        id: release_context
-        run: |
-          tag="$(git describe HEAD --abbrev=0 --tags)"
-          echo "tag_name=$tag" >>$GITHUB_OUTPUT
-          echo "version=${tag/v/}" >>$GITHUB_OUTPUT
-          git tag -d "${tag}"
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          title: "Release ${{ steps.release_context.outputs.tag_name }}"
-          body-path: RELEASE_BODY.md
-          branch: "release/${{ steps.release_context.outputs.tag_name }}"
-          commit-message: "chore(release): ${{ steps.release_context.outputs.tag_name }}"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: "release-note-${{ steps.release_context.outputs.tag_name }}"
-          path: RELEASE_BODY.md
