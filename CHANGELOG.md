@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/tkrs/release-test/compare/v1.2.0...v1.3.0) (2024-08-05)
+
+
+### Features
+
+* add foo.js ([35c17ac](https://github.com/tkrs/release-test/commit/35c17ac73ce837d1e116adbd49edd6b08c64bb04))
+* add messages ([0f52ed2](https://github.com/tkrs/release-test/commit/0f52ed2124fb076c4c32a804551988911ecaddd0))
+
+
+### Bug Fixes
+
+* change the message to foobar! ([a07e494](https://github.com/tkrs/release-test/commit/a07e4946a6a65ef66e0455215453d77072e97ce7))
+
 ## [1.2.0](https://github.com/tkrs/release-test/compare/v1.2.0-alpha.41...v1.2.0) (2024-08-05)
 
 
