@@ -1,3 +1,3 @@
 # release-test
 
-[![Tagging](https://github.com/tkrs/release-test/actions/workflows/tagging.yml/badge.svg)](https://github.com/tkrs/release-test/actions/workflows/tagging.yml)
+[![release-please](https://github.com/tkrs/release-test/actions/workflows/release-please.yml/badge.svg)](https://github.com/tkrs/release-test/actions/workflows/release-please.yml)
