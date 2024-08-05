@@ -17,7 +17,7 @@ jobs:
         id: release
         with:
           # token: ${{ secrets.GH_PAT }}
-          release-type: node
+          release-type: simple
       - uses: actions/checkout@v4
         if: ${{ steps.release.outputs.release_created }}
       - run: echo 'Do release!'
