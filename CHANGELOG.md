@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/tkrs/release-test/compare/v1.2.0...v1.2.1) (2024-08-05)
+
+
+### Bug Fixes
+
+* change the message to foobar! ([a07e494](https://github.com/tkrs/release-test/commit/a07e4946a6a65ef66e0455215453d77072e97ce7))
+
 ## [1.2.0](https://github.com/tkrs/release-test/compare/v1.2.0-alpha.41...v1.2.0) (2024-08-05)
 
 
