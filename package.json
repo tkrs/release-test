@@ -5,7 +5,5 @@
   "repository": "https://github.com/tkrs/release-test.git",
   "author": "Takeru Sato <type.in.type@gmail.com>",
   "license": "MIT",
-  "devDependencies": {
-    "standard-version": "^9.5.0"
-  }
+  "devDependencies": {}
 }
