@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+name: release-please
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GH_PAT }}
+          release-type: node
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created }}
+      - run: echo 'Do release!'
