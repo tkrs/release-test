@@ -1,7 +1,8 @@
 {
   "name": "release-test",
+  "type": "module",
   "version": "1.2.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": "https://github.com/tkrs/release-test.git",
   "author": "Takeru Sato <type.in.type@gmail.com>",
   "license": "MIT",
