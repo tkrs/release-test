@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1-alpha.41](https://github.com/tkrs/release-test/compare/v1.2.0-alpha.41...v1.2.1-alpha.41) (2024-08-05)
+
+
+### Bug Fixes
+
+* remove comma ([3173e04](https://github.com/tkrs/release-test/commit/3173e04b6c421345f9f8038ffa48ddeef93711f0))
+
 ## [1.2.0-alpha.41](https://github.com/tkrs/release-test/compare/v1.1.1-alpha.41...v1.2.0-alpha.41) (2024-08-05)
 
 
