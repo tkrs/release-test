@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/tkrs/release-test/compare/v1.3.0...v1.4.0) (2025-04-02)
+
+
+### Features
+
+* use async ([57b38c1](https://github.com/tkrs/release-test/commit/57b38c151ba489a2a060fd69b3cb764a0edeb64f))
+* use async ([9d5b0b8](https://github.com/tkrs/release-test/commit/9d5b0b8885cc70e09bf673978989311d8408ba11))
+
 ## [1.3.0](https://github.com/tkrs/release-test/compare/v1.2.0...v1.3.0) (2024-08-05)
 
 
