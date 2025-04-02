@@ -1,6 +1,6 @@
 import { message } from "./message.js";
 
-function main() {
+async function main() {
   console.log("start");
   console.log(message);
   console.log("end");
