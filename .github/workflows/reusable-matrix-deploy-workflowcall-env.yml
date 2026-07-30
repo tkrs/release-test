@@ -1,0 +1,18 @@
+name: reusable-matrix-deploy-workflowcall-env
+
+on:
+  workflow_call:
+    environment: production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [a, b, c]
+    steps:
+      - name: Simulate deploy step
+        run: |
+          echo "Deploying target: ${{ matrix.target }}"
+          sleep 5
+          echo "Done: ${{ matrix.target }}"

@@ -1,0 +1,9 @@
+name: verify-deployment-subscribe-workflow-level
+
+on:
+  workflow_dispatch:
+
+jobs:
+  gate-and-call:
+    environment: production
+    uses: ./.github/workflows/reusable-matrix-deploy-noenv.yml
