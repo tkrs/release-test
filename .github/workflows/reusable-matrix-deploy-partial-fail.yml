@@ -1,0 +1,21 @@
+name: reusable-matrix-deploy-partial-fail
+
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [a, b, c]
+    steps:
+      - name: Simulate deploy step (intentionally fail for target b)
+        run: |
+          echo "Deploying target: ${{ matrix.target }}"
+          if [ "${{ matrix.target }}" = "b" ]; then
+            echo "Intentional failure for target b"
+            exit 1
+          fi
+          echo "Done: ${{ matrix.target }}"

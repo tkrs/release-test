@@ -1,0 +1,54 @@
+name: verify-deployment-subscribe-gate-matrix-report
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - run: echo "Approval gate passed"
+
+  matrix-call:
+    needs: gate
+    uses: ./.github/workflows/reusable-matrix-deploy-partial-fail.yml
+
+  report-deployment:
+    needs: [gate, matrix-call]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const matrixResult = '${{ needs.matrix-call.result }}';
+            const state = matrixResult === 'success' ? 'success' : 'failure';
+
+            const deployment = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.sha,
+              environment: 'production',
+              auto_merge: false,
+              required_contexts: [],
+              transient_environment: true,
+              description: 'Reflecting matrix-call result into Deployments',
+            });
+
+            if (!('id' in deployment.data)) {
+              core.setFailed(`Deployment creation did not return an id: ${JSON.stringify(deployment.data)}`);
+              return;
+            }
+
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: deployment.data.id,
+              state,
+              description: `matrix-call result: ${matrixResult}`,
+            });
